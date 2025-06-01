@@ -10,7 +10,7 @@ def send_to_kindle(epub_bytes: bytes, filename: str, kindle_email: str, sender_e
     msg['From'] = sender_email
     msg['To'] = kindle_email
     msg.set_content('')
-
+    
     msg.add_attachment(epub_bytes, maintype='application', subtype='epub+zip', filename=filename)
 
     with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as smtp:
@@ -36,5 +36,6 @@ if __name__ == "__main__":
     if sender_email is None or sender_app_password is None:
         raise ValueError("[!] EMAIL and PASSWORD environment variables must be set")
 
-    send_to_kindle(epub_bytes, filename=epub_path.split('/')[-1], kindle_email=kindle_email,
+    filename = os.path.basename(epub_path)
+    send_to_kindle(epub_bytes, filename=filename, kindle_email=kindle_email,
                    sender_email=sender_email, sender_app_password=sender_app_password)
