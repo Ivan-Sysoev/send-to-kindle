@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import sys
 from convert_to_epub import convert_to_epub
